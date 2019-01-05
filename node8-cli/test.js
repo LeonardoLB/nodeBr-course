@@ -8,6 +8,9 @@ const DEFAULT_ITEM_CADASTRAR = {
 }
 
 describe('Suite de manipulação de Herois', () =>{
+    // Before( async () => {
+    //     await database.casdastrar(DEFAULT_ITEM_CADASTRAR)
+    // } )
 
     it('Deve pesquisar um heroi' , async () => {
         const expected = DEFAULT_ITEM_CADASTRAR
@@ -25,5 +28,12 @@ describe('Suite de manipulação de Herois', () =>{
         const [actual] = await database.listar(DEFAULT_ITEM_CADASTRAR.id )
         //
         deepEqual( actual , expected )
+    })
+
+    it.only('Dever Remover um heroi por id', async ()=> {
+        const expected = true;
+        const resultado = await database.remover( DEFAULT_ITEM_CADASTRAR.id )
+
+        deepEqual( resultado , expected )
     })
 })
