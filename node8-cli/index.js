@@ -46,7 +46,16 @@ async function main() {
         }
 
         if (commander.atualizar) {
-            const idAtt = commander.atualizar
+            const idAtt = parseInt(commander.atualizar)
+            //remover todas as chaves que tiverem undefined
+            const dado = JSON.stringify(heroi)
+            const heroiAtualizar = JSON.parse(dado)
+            const resultado = await database.atualizar(idAtt, heroiAtualizar)
+            if (!resultado) {
+                console.error( 'Não foi possivel atualizar o heroi' )
+                return
+            }
+            console.log('Heroi atualizado com sucesso')
         }
 
     } catch (error) {
