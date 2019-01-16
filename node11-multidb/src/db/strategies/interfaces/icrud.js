@@ -25,7 +25,7 @@ class Icrud {
         throw new NotImplementedException()
     }
 
-    Connect(){
+    connect(){
         throw new NotImplementedException()
     }
 }

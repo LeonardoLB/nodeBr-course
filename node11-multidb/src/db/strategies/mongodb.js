@@ -1,4 +1,12 @@
 const Icrud = require('./interfaces/icrud')
+const Mongoose = require('mongoose')
+const STATUS = {
+    0: 'Desconectado',
+    1: 'Conectado',
+    2: 'Conectando',
+    3: 'Desconectado'
+}
+
 
 class Mongodb extends Icrud {
     constructor() {
@@ -7,7 +15,17 @@ class Mongodb extends Icrud {
         this._drive = null
     }
 
-    isConnected() {
+    async isConnected() {
+        const state = STATU[connection.readyState]
+
+        if (state === 'Conectado') {
+            return true
+        }
+
+        if (state === 'Conectando') {
+            await new Promise( resolve => setTimeout(resolve, 1000))
+            return STATU[connection.readyState]
+        }
 
     }
 
@@ -45,7 +63,7 @@ class Mongodb extends Icrud {
 
     }
 
-    create(item) {
+    async create(item) {
         const resultCadastrar = await model.create({ nome: 'Fumikage Tokoyami', poder: 'Dark Shadown' })
 
         console.log('ResultCadastrar: ', resultCadastrar)
