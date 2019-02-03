@@ -4,7 +4,12 @@ const Context = require('./../db/strategies/base/contextStrategy')
 
 const context = new Context(new Mongodb())
 
-describe('MongoDB suite de testes', () => {
+describe('MongoDB suite de testes', function() {
+
+    this.beforeAll(async function () {
+        await context.connect()
+    }())
+
     it('verificar', async () => {
         const result = await context.isConnected()
         const expected = 'Conectado'

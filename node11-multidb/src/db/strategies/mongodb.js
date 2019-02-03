@@ -7,6 +7,8 @@ const STATUS = {
     3: 'Desconectado'
 }
 
+this._drive = null
+
 
 class Mongodb extends Icrud {
     constructor() {
@@ -16,7 +18,7 @@ class Mongodb extends Icrud {
     }
 
     async isConnected() {
-        const state = STATU[connection.readyState]
+        const state = STATUS[this._drive.readyState]
 
         if (state === 'Conectado') {
             return true
@@ -24,13 +26,13 @@ class Mongodb extends Icrud {
 
         if (state === 'Conectando') {
             await new Promise( resolve => setTimeout(resolve, 1000))
-            return STATU[connection.readyState]
+            return STATUS[this._drive.readyState]
         }
 
     }
 
     defineModel() {
-        this._herois = new Mongoose.Schema({
+        heroiSchema = new Mongoose.Schema({
             nome: {
                 type: String,
                 required: true,
@@ -41,7 +43,7 @@ class Mongodb extends Icrud {
             }
         })
 
-        const model = Mongoose.model('herois', heroiSchema)
+        this._herois = Mongoose.model('herois', heroiSchema)
 
     }
 
@@ -56,10 +58,12 @@ class Mongodb extends Icrud {
             })
 
         const connection = Mongoose.connection
+        this._drive = connection
 
         connection.once('open', function () {
             console.log('database rodando')
         })
+
 
     }
 

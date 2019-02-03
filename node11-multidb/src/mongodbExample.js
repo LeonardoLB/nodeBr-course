@@ -2,7 +2,7 @@
 const Mongoose = require('mongoose')
 
 // connecta com o Mongodb e especificar por ultimo o banco
-Mongoose.connect('mongodb://leo:minhasenhasecreta@localhost:27017/herois',{ useNewUrlParser: true }, function (error) {
+Mongoose.connect('mongodb://myuser:mypassword@localhost:27017/herois',{ useNewUrlParser: true }, function (error) {
     if (!error) {
         return
     }
@@ -18,7 +18,7 @@ connection.once('open', function () {
 
 setTimeout(() => {
     const state = connection.readyState
-    console.log( state )
+    // console.log( state )
 }, 2000);
 
 // states = 0 deconectado, 1 conectado, 2 conectando, 3 desconectando
@@ -32,6 +32,10 @@ const heroiSchema = new Mongoose.Schema({
     poder: {
         type: String,
         required: true
+    },
+    insertedAt: {
+        type: Date,
+        default: new Date
     }
 })
 
@@ -46,7 +50,7 @@ async function cadastrar() {
 async function listar(){
     const resultListar = await model.find({})
 
-    console.log( resultListar )
+    console.log('consulta: ', resultListar )
 }
 
 
