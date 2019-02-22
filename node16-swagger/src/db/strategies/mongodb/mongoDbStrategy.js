@@ -26,9 +26,9 @@ class MongoDB extends ICrud {
         return STATUS[this._connection.readyState]
 
     }
-     // 1o
+     // 1o 
     static connect() {
-        Mongoose.connect('mongodb://myuser:mypassword@localhost:27017/herois', {
+        Mongoose.connect('mongodb://erickwendel:minhasenhasecreta@localhost:27017/herois', {
             useNewUrlParser: true
         }, function (error) {
             if (!error) return;
@@ -48,7 +48,7 @@ class MongoDB extends ICrud {
     async update(id, item) {
         return this._collection.updateOne({_id: id}, { $set: item})
     }
-
+    
     async delete(id) {
         return this._collection.deleteOne({_id: id})
     }

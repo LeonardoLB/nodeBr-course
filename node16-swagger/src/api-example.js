@@ -4,7 +4,7 @@ const MongoDB = require('./src/db/strategies/mongoDbStrategy')
 const mongoDb = new Context(new MongoDB())
 
 const app = new Hapi.Server({
-    port: 5000
+    port: 4000
 })
 
 async function main() {
